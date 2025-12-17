@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b621ae7b52016c04592f050f24d31532, type: 3}
-  m_Name: Pistol
+  m_Name: Rifle
   m_EditorClassIdentifier: 
-  gunPrefab: {fileID: 6234394628559232977, guid: 06cb24315cf26594ea9b81b174c6cd21, type: 3}
-  damage: 10
+  gunPrefab: {fileID: 3570246709073903038, guid: 2747e12741c6049498046732e0978203, type: 3}
+  damage: 20
   cooldown: 0.2
-  range: 30
-  isAutomatic: 0
+  range: 50
+  isAutomatic: 1

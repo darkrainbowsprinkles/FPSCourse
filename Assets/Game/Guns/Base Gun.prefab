@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   muzzle: {fileID: 1040888301660380047}
   muzzleFlashEffect: {fileID: 1782395880954752, guid: 3dd9cf2e209c504448f1c4c6835675cf, type: 3}
+  hitEffect: {fileID: 8051778499957098049, guid: 0c769bb3ec683374fa5f0b109a5a2a6d, type: 3}
 --- !u!1 &7240920440465127937
 GameObject:
   m_ObjectHideFlags: 0
