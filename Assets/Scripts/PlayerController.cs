@@ -6,11 +6,23 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float movementSpeed = 2f;
     [SerializeField] float sprintMultiplier = 2f;
     [SerializeField] Transform gunContainer;
-    [SerializeField] GunData gunData;
+    [SerializeField] GunData defaultGun;
     PlayerInput playerInput;
     CharacterController controller;
-    Gun gun;
+    GunData currentGunData;
+    Gun currentGun;
     float timeSinceLastShot = Mathf.Infinity;
+
+    public void EquipGun(GunData gunData)
+    {
+        if (currentGun != null)
+        {
+            Destroy(currentGun.gameObject);
+        }
+
+        currentGun = gunData.Spawn(gunContainer);
+        currentGunData = gunData;
+    }
 
     void Awake()
     {
@@ -22,8 +34,7 @@ public class PlayerController : MonoBehaviour
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-
-        gun = gunData.Spawn(gunContainer);
+        EquipGun(defaultGun);
     }
 
     void Update()
@@ -35,21 +46,21 @@ public class PlayerController : MonoBehaviour
 
     void HandleFiring()
     {
-        if (timeSinceLastShot < gunData.GetCooldown())
+        if (timeSinceLastShot < currentGunData.GetCooldown())
         {
             return;
         }
 
         InputAction fireInput = playerInput.actions["Fire"];
 
-        if (gunData.IsAutomatic() && fireInput.IsPressed())
+        if (currentGunData.IsAutomatic() && fireInput.IsPressed())
         {
-            gun.Fire(gunData.GetDamage(), gunData.GetRange());
+            currentGun.Fire(currentGunData.GetDamage(), currentGunData.GetRange());
             timeSinceLastShot = 0f;
         }
-        else if (!gunData.IsAutomatic() && fireInput.WasPressedThisFrame())
+        else if (!currentGunData.IsAutomatic() && fireInput.WasPressedThisFrame())
         {
-            gun.Fire(gunData.GetDamage(), gunData.GetRange());
+            currentGun.Fire(currentGunData.GetDamage(), currentGunData.GetRange());
             timeSinceLastShot = 0f;
         }
     }
