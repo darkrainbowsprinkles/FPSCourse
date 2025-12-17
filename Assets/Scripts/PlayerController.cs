@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] float movementSpeed = 2f;
     [SerializeField] float sprintMultiplier = 2f;
+    [SerializeField] Gun gun;
     PlayerInput playerInput;
     CharacterController controller;
 
@@ -27,6 +28,11 @@ public class PlayerController : MonoBehaviour
         if (playerInput.actions["Sprint"].IsPressed())
         {
             speed = movementSpeed * sprintMultiplier;
+        }
+
+        if (playerInput.actions["Fire"].IsPressed())
+        {
+            gun.Fire();
         }
 
         controller.Move(speed * Time.deltaTime * CalculateMovement());
