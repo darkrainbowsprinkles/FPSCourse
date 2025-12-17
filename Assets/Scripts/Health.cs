@@ -8,6 +8,11 @@ public class Health : MonoBehaviour
     public void TakeDamage(float damage)
     {
         currentHealth = Mathf.Max(0, currentHealth - damage);
+
+        if (currentHealth == 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     void Start()
