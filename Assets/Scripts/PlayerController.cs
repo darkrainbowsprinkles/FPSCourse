@@ -5,9 +5,12 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] float movementSpeed = 2f;
     [SerializeField] float sprintMultiplier = 2f;
-    [SerializeField] Gun gun;
+    [SerializeField] Transform gunContainer;
+    [SerializeField] GunData gunData;
     PlayerInput playerInput;
     CharacterController controller;
+    Gun gun;
+    float timeSinceLastShot = Mathf.Infinity;
 
     void Awake()
     {
@@ -19,20 +22,45 @@ public class PlayerController : MonoBehaviour
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+
+        gun = gunData.Spawn(gunContainer);
     }
 
     void Update()
+    {
+        timeSinceLastShot += Time.deltaTime;
+        HandleMovement();
+        HandleFiring();
+    }
+
+    void HandleFiring()
+    {
+        if (timeSinceLastShot < gunData.GetCooldown())
+        {
+            return;
+        }
+
+        InputAction fireInput = playerInput.actions["Fire"];
+
+        if (gunData.IsAutomatic() && fireInput.IsPressed())
+        {
+            gun.Fire(gunData.GetDamage(), gunData.GetRange());
+            timeSinceLastShot = 0f;
+        }
+        else if (!gunData.IsAutomatic() && fireInput.WasPressedThisFrame())
+        {
+            gun.Fire(gunData.GetDamage(), gunData.GetRange());
+            timeSinceLastShot = 0f;
+        }
+    }
+
+    void HandleMovement()
     {
         float speed = movementSpeed;
 
         if (playerInput.actions["Sprint"].IsPressed())
         {
             speed = movementSpeed * sprintMultiplier;
-        }
-
-        if (playerInput.actions["Fire"].IsPressed())
-        {
-            gun.Fire();
         }
 
         controller.Move(speed * Time.deltaTime * CalculateMovement());

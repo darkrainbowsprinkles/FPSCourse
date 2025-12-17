@@ -2,14 +2,12 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
-    [SerializeField] float damage = 10f;
-
-    public void Fire()
+    public void Fire(float damage, float range)
     {
         RaycastHit hit;
 
         bool hitFound = Physics.Raycast(Camera.main.transform.position, 
-            Camera.main.transform.forward, out hit, 100);
+            Camera.main.transform.forward, out hit, range);
     
         if (!hitFound)
         {
