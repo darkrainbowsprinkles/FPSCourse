@@ -9,6 +9,7 @@ public class GunUI : MonoBehaviour
     [SerializeField] Image ammoIconImage;
     [SerializeField] AmmoIcon[] ammoIcons;
     [SerializeField] RawImage crosshairImage;
+    [SerializeField] RawImage scopeImage;
     PlayerController playerController;
 
     [System.Serializable]
@@ -22,6 +23,24 @@ public class GunUI : MonoBehaviour
     {
         GameObject player = GameObject.FindWithTag("Player");
         playerController = player.GetComponent<PlayerController>();
+    }
+
+    void Update()
+    {
+        GunData currentGunData = playerController.GetCurrentGunData();
+
+        if (currentGunData == null)
+        {
+            return;
+        }
+
+        if (currentGunData.GetScope() == null)
+        {
+            return;
+        }
+
+        scopeImage.gameObject.SetActive(playerController.IsZooming());
+        crosshairImage.gameObject.SetActive(!playerController.IsZooming());
     }
 
     void OnEnable()
@@ -48,6 +67,7 @@ public class GunUI : MonoBehaviour
         gunIconImage.sprite = currentGunData.GetIcon();
         ammoIconImage.sprite = GetAmmoIcon(currentGunData.GetAmmoType());
         crosshairImage.texture = currentGunData.GetCrosshair();
+        scopeImage.texture = currentGunData.GetScope();
 
         RefreshAmmoText();
     }

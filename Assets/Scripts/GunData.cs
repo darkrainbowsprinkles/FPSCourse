@@ -7,6 +7,7 @@ public class GunData : ScriptableObject
     [SerializeField] AmmoType ammoType;
     [SerializeField] Sprite icon;
     [SerializeField] Texture2D crosshair;
+    [SerializeField] Texture2D scope;
     [SerializeField] bool isAutomatic = false;
     [SerializeField] bool canZoom = false;
     [SerializeField] float damage = 10f;
@@ -35,6 +36,11 @@ public class GunData : ScriptableObject
     public Texture2D GetCrosshair()
     {
         return crosshair;
+    }
+
+    public Texture2D GetScope()
+    {
+        return scope;
     }
 
     public bool IsAutomatic()

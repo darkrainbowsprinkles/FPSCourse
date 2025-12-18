@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     CharacterController controller;
     GunData currentGunData;
     Gun currentGun;
+    bool isZooming;
     float defaultFOV;
     float defaultRotationSpeed;
     float timeSinceLastShot = Mathf.Infinity;
@@ -28,6 +29,11 @@ public class PlayerController : MonoBehaviour
     public GunData GetCurrentGunData()
     {
         return currentGunData;
+    }
+
+    public bool IsZooming()
+    {
+        return isZooming;
     }
  
     public void EquipGun(GunData gunData)
@@ -148,13 +154,15 @@ public class PlayerController : MonoBehaviour
 
         if (playerInput.actions["Zoom"].IsPressed())
         {
+            isZooming = true;
             firstPersonCamera.Lens.FieldOfView = currentGunData.GetZoomAmount();
             SetCameraRotationSpeed(currentGunData.GetZoomRotationSpeed());
         }
         else
         {
-           firstPersonCamera.Lens.FieldOfView = defaultFOV;
-           SetCameraRotationSpeed(defaultRotationSpeed);
+            isZooming = false;
+            firstPersonCamera.Lens.FieldOfView = defaultFOV;
+            SetCameraRotationSpeed(defaultRotationSpeed);
         }
     }
 
