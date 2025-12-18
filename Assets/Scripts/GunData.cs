@@ -4,17 +4,33 @@ using UnityEngine;
 public class GunData : ScriptableObject
 {
     [SerializeField] Gun gunPrefab;
+    [SerializeField] AmmoType ammoType;
+    [SerializeField] Sprite icon;
+    [SerializeField] bool isAutomatic = false;
     [SerializeField] float damage = 10f;
     [SerializeField] float cooldown = 0.4f;
     [SerializeField] float range = 30f;
-    [SerializeField] bool isAutomatic = false;
     [SerializeField] int magazineSize = 10;
-    [SerializeField] AmmoType ammoType;
 
     public Gun Spawn(Transform gunContainer)
     {
         Gun gunInstance = Instantiate(gunPrefab, gunContainer);
         return gunInstance;
+    }
+
+    public AmmoType GetAmmoType()
+    {
+        return ammoType;
+    }
+
+    public Sprite GetIcon()
+    {
+        return icon;
+    }
+
+    public bool IsAutomatic()
+    {
+        return isAutomatic;
     }
 
     public float GetDamage()
@@ -32,18 +48,8 @@ public class GunData : ScriptableObject
         return range;
     }
 
-    public bool IsAutomatic()
-    {
-        return isAutomatic;
-    }
-
     public int GetMagazineSize()
     {
         return magazineSize;
-    }
-
-    public AmmoType GetAmmoType()
-    {
-        return ammoType;
     }
 }

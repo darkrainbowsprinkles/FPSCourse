@@ -15,6 +15,11 @@ public class PlayerController : MonoBehaviour
     Gun currentGun;
     float timeSinceLastShot = Mathf.Infinity;
     Dictionary<AmmoType, int> ammoLookup;
+
+    public GunData GetCurrentGunData()
+    {
+        return currentGunData;
+    }
  
     public void EquipGun(GunData gunData)
     {

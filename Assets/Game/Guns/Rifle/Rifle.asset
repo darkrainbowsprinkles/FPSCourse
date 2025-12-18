@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Rifle
   m_EditorClassIdentifier: 
   gunPrefab: {fileID: 3570246709073903038, guid: 2747e12741c6049498046732e0978203, type: 3}
+  ammoType: 1
+  icon: {fileID: 21300000, guid: da8f4d9535f6d22418d362798425e3b7, type: 3}
+  isAutomatic: 1
   damage: 20
   cooldown: 0.2
   range: 50
-  isAutomatic: 1
   magazineSize: 10
-  ammoType: 1
