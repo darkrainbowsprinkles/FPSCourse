@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,6 +8,8 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] float movementSpeed = 2f;
     [SerializeField] float sprintMultiplier = 2f;
+    [SerializeField] CinemachineCamera firstPersonCamera;
+    [SerializeField] CinemachineInputAxisController axisController;
     [SerializeField] Transform gunContainer;
     [SerializeField] GunData defaultGun;
     [SerializeField] AmmoSlot[] ammoSlots;
@@ -14,6 +17,8 @@ public class PlayerController : MonoBehaviour
     CharacterController controller;
     GunData currentGunData;
     Gun currentGun;
+    float defaultFOV;
+    float defaultRotationSpeed;
     float timeSinceLastShot = Mathf.Infinity;
     Dictionary<AmmoType, int> ammoLookup;
     
@@ -77,6 +82,8 @@ public class PlayerController : MonoBehaviour
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        defaultFOV = firstPersonCamera.Lens.FieldOfView;
+        defaultRotationSpeed = axisController.Controllers[0].Input.Gain;
         FillAmmoLookup();
         EquipGun(defaultGun);
     }
@@ -86,6 +93,7 @@ public class PlayerController : MonoBehaviour
         timeSinceLastShot += Time.deltaTime;
         HandleMovement();
         HandleFiring();
+        HandleZoom();
     }
 
     void FillAmmoLookup()
@@ -129,6 +137,31 @@ public class PlayerController : MonoBehaviour
         currentGun.Fire(currentGunData.GetDamage(), currentGunData.GetRange());
         timeSinceLastShot = 0f;
         AdjustAmmo(currentGunData.GetAmmoType(), -1);
+    }
+
+    void HandleZoom()
+    {
+        if (!currentGunData.CanZoom())
+        {
+            return;
+        }
+
+        if (playerInput.actions["Zoom"].IsPressed())
+        {
+            firstPersonCamera.Lens.FieldOfView = currentGunData.GetZoomAmount();
+            SetCameraRotationSpeed(currentGunData.GetZoomRotationSpeed());
+        }
+        else
+        {
+           firstPersonCamera.Lens.FieldOfView = defaultFOV;
+           SetCameraRotationSpeed(defaultRotationSpeed);
+        }
+    }
+
+    void SetCameraRotationSpeed(float speed)
+    {
+        axisController.Controllers[0].Input.Gain = speed;
+        axisController.Controllers[1].Input.Gain = -speed;
     }
 
     void HandleMovement()

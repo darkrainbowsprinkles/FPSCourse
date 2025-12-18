@@ -223,6 +223,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 4
   sprintMultiplier: 2
+  firstPersonCamera: {fileID: 657032429838808156}
+  axisController: {fileID: 7577060584101372432}
   gunContainer: {fileID: 7061015170037355413}
   defaultGun: {fileID: 11400000, guid: de45c30f57d4ba646a332dd230da0c79, type: 2}
   ammoSlots:
@@ -293,6 +295,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 791ace722829b8a4e8e95f27e32b1841, type: 3}
+--- !u!114 &657032429838808156 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3716158568572162427, guid: 791ace722829b8a4e8e95f27e32b1841, type: 3}
+  m_PrefabInstance: {fileID: 4218831634720400679}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9dfa5b682dcd46bda6128250e975f58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &3648163878135083199 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 589035536549123480, guid: 791ace722829b8a4e8e95f27e32b1841, type: 3}
@@ -303,3 +316,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6589204848733337266, guid: 791ace722829b8a4e8e95f27e32b1841, type: 3}
   m_PrefabInstance: {fileID: 4218831634720400679}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7577060584101372432 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6029032854880077623, guid: 791ace722829b8a4e8e95f27e32b1841, type: 3}
+  m_PrefabInstance: {fileID: 4218831634720400679}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89875cdc57c54474a8a74efd9b2a3b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

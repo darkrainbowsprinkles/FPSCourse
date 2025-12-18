@@ -8,10 +8,13 @@ public class GunData : ScriptableObject
     [SerializeField] Sprite icon;
     [SerializeField] Texture2D crosshair;
     [SerializeField] bool isAutomatic = false;
+    [SerializeField] bool canZoom = false;
     [SerializeField] float damage = 10f;
     [SerializeField] float cooldown = 0.4f;
     [SerializeField] float range = 30f;
     [SerializeField] int magazineSize = 10;
+    [SerializeField] float zoomAmount = 30f;
+    [SerializeField] float zoomRotationSpeed = 0.5f;
 
     public Gun Spawn(Transform gunContainer)
     {
@@ -39,6 +42,11 @@ public class GunData : ScriptableObject
         return isAutomatic;
     }
 
+    public bool CanZoom()
+    {
+        return canZoom;
+    }
+
     public float GetDamage()
     {
         return damage;
@@ -57,5 +65,15 @@ public class GunData : ScriptableObject
     public int GetMagazineSize()
     {
         return magazineSize;
+    }
+    
+    public float GetZoomAmount()
+    {
+        return zoomAmount;
+    }
+
+    public float GetZoomRotationSpeed()
+    {
+        return zoomRotationSpeed;
     }
 }
