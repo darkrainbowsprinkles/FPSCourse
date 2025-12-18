@@ -6,6 +6,7 @@ public class GunData : ScriptableObject
     [SerializeField] Gun gunPrefab;
     [SerializeField] AmmoType ammoType;
     [SerializeField] Sprite icon;
+    [SerializeField] Texture2D crosshair;
     [SerializeField] bool isAutomatic = false;
     [SerializeField] float damage = 10f;
     [SerializeField] float cooldown = 0.4f;
@@ -26,6 +27,11 @@ public class GunData : ScriptableObject
     public Sprite GetIcon()
     {
         return icon;
+    }
+
+    public Texture2D GetCrosshair()
+    {
+        return crosshair;
     }
 
     public bool IsAutomatic()

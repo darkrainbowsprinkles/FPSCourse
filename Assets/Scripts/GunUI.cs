@@ -8,6 +8,7 @@ public class GunUI : MonoBehaviour
     [SerializeField] TMP_Text ammoText;
     [SerializeField] Image ammoIconImage;
     [SerializeField] AmmoIcon[] ammoIcons;
+    [SerializeField] RawImage crosshairImage;
     PlayerController playerController;
 
     [System.Serializable]
@@ -25,17 +26,17 @@ public class GunUI : MonoBehaviour
 
     void OnEnable()
     {
-        playerController.OnGunEquipped += RefreshIcons;
+        playerController.OnGunEquipped += RefreshGunData;
         playerController.OnAmmoAdjusted += RefreshAmmoText;
     }
 
     void OnDisable()
     {
-        playerController.OnGunEquipped -= RefreshIcons;
+        playerController.OnGunEquipped -= RefreshGunData;
         playerController.OnAmmoAdjusted -= RefreshAmmoText;
     }
 
-    void RefreshIcons()
+    void RefreshGunData()
     {
         GunData currentGunData = playerController.GetCurrentGunData();
 
@@ -46,6 +47,7 @@ public class GunUI : MonoBehaviour
 
         gunIconImage.sprite = currentGunData.GetIcon();
         ammoIconImage.sprite = GetAmmoIcon(currentGunData.GetAmmoType());
+        crosshairImage.texture = currentGunData.GetCrosshair();
 
         RefreshAmmoText();
     }
