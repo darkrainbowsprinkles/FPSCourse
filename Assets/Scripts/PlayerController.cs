@@ -16,7 +16,9 @@ public class PlayerController : MonoBehaviour
     Gun currentGun;
     float timeSinceLastShot = Mathf.Infinity;
     Dictionary<AmmoType, int> ammoLookup;
-    public event Action OnGunChanged;
+    
+    public event Action OnGunEquipped;
+    public event Action OnAmmoAdjusted;
 
     public GunData GetCurrentGunData()
     {
@@ -32,7 +34,7 @@ public class PlayerController : MonoBehaviour
 
         currentGun = gunData.Spawn(gunContainer);
         currentGunData = gunData;
-        OnGunChanged?.Invoke();
+        OnGunEquipped?.Invoke();
     }
 
     public void AdjustAmmo(AmmoType ammoType, int amount)
@@ -44,11 +46,21 @@ public class PlayerController : MonoBehaviour
         }
 
         ammoLookup[ammoType] += amount;
-        
-        print(GetAmmo(ammoType));
+        OnAmmoAdjusted?.Invoke();
     }
 
-    [System.Serializable]
+    public int GetAmmo(AmmoType ammoType)
+    {
+        if (!ammoLookup.ContainsKey(ammoType))
+        {
+            Debug.LogError($"Ammo type {ammoType} not found");
+            return -1;
+        }
+
+        return ammoLookup[ammoType];
+    }
+
+    [Serializable]
     class AmmoSlot
     {
         public AmmoType ammoType;
@@ -110,17 +122,6 @@ public class PlayerController : MonoBehaviour
         {
             Shoot();
         }
-    }
-
-    int GetAmmo(AmmoType ammoType)
-    {
-        if (!ammoLookup.ContainsKey(ammoType))
-        {
-            Debug.LogError($"Ammo type {ammoType} not found");
-            return -1;
-        }
-
-        return ammoLookup[ammoType];
     }
 
     void Shoot()

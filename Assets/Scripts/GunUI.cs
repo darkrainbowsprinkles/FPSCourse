@@ -1,9 +1,11 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GunUI : MonoBehaviour
 {
     [SerializeField] Image iconImage;
+    [SerializeField] TMP_Text ammoText;
     PlayerController playerController;
 
     void Awake()
@@ -14,15 +16,17 @@ public class GunUI : MonoBehaviour
 
     void OnEnable()
     {
-        playerController.OnGunChanged += RefreshUI;
+        playerController.OnGunEquipped += RefreshIcon;
+        playerController.OnAmmoAdjusted += RefreshAmmoText;
     }
 
     void OnDisable()
     {
-        playerController.OnGunChanged -= RefreshUI;
+        playerController.OnGunEquipped -= RefreshIcon;
+        playerController.OnAmmoAdjusted -= RefreshAmmoText;
     }
 
-    void RefreshUI()
+    void RefreshIcon()
     {
         GunData currentGunData = playerController.GetCurrentGunData();
 
@@ -32,5 +36,19 @@ public class GunUI : MonoBehaviour
         }
 
         iconImage.sprite = currentGunData.GetIcon();
+
+        RefreshAmmoText();
+    }
+
+    void RefreshAmmoText()
+    {
+        GunData currentGunData = playerController.GetCurrentGunData();
+
+        if (currentGunData == null)
+        {
+            return;
+        }
+
+        ammoText.text = $"{playerController.GetAmmo(currentGunData.GetAmmoType())}";
     }
 }
