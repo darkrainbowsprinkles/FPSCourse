@@ -12,7 +12,17 @@ public class GunUI : MonoBehaviour
         playerController = player.GetComponent<PlayerController>();
     }
 
-    void Update()
+    void OnEnable()
+    {
+        playerController.OnGunChanged += RefreshUI;
+    }
+
+    void OnDisable()
+    {
+        playerController.OnGunChanged -= RefreshUI;
+    }
+
+    void RefreshUI()
     {
         GunData currentGunData = playerController.GetCurrentGunData();
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -15,6 +16,7 @@ public class PlayerController : MonoBehaviour
     Gun currentGun;
     float timeSinceLastShot = Mathf.Infinity;
     Dictionary<AmmoType, int> ammoLookup;
+    public event Action OnGunChanged;
 
     public GunData GetCurrentGunData()
     {
@@ -30,6 +32,7 @@ public class PlayerController : MonoBehaviour
 
         currentGun = gunData.Spawn(gunContainer);
         currentGunData = gunData;
+        OnGunChanged?.Invoke();
     }
 
     public void AdjustAmmo(AmmoType ammoType, int amount)
