@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &488348875111091580
 Transform:
   m_ObjectHideFlags: 0
@@ -144,7 +144,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8627154342393136938}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.006694913, y: -1.0159861, z: -1.5160019}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -289,6 +289,30 @@ PrefabInstance:
     - target: {fileID: 5268321869921386622, guid: 791ace722829b8a4e8e95f27e32b1841, type: 3}
       propertyPath: m_Name
       value: First Person Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 6589204848733337266, guid: 791ace722829b8a4e8e95f27e32b1841, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.396
+      objectReference: {fileID: 0}
+    - target: {fileID: 6589204848733337266, guid: 791ace722829b8a4e8e95f27e32b1841, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 6589204848733337266, guid: 791ace722829b8a4e8e95f27e32b1841, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.5830001
+      objectReference: {fileID: 0}
+    - target: {fileID: 6589204848733337266, guid: 791ace722829b8a4e8e95f27e32b1841, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6589204848733337266, guid: 791ace722829b8a4e8e95f27e32b1841, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6589204848733337266, guid: 791ace722829b8a4e8e95f27e32b1841, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

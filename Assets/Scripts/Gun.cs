@@ -1,3 +1,4 @@
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class Gun : MonoBehaviour
@@ -6,12 +7,15 @@ public class Gun : MonoBehaviour
     [SerializeField] GameObject muzzleFlashEffect;
     [SerializeField] GameObject hitEffect;
     Animator animator;
+    CinemachineImpulseSource impulseSource;
 
     public void Fire(float damage, float range)
     {
         animator.Play("Gun Shoot", 0, 0f);
 
         Instantiate(muzzleFlashEffect, muzzle);
+        
+        impulseSource.GenerateImpulse();
 
         RaycastHit hit;
 
@@ -34,5 +38,6 @@ public class Gun : MonoBehaviour
     void Awake()
     {
         animator = GetComponentInParent<Animator>();
+        impulseSource = GetComponent<CinemachineImpulseSource>();
     }
 }
