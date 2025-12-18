@@ -3,6 +3,7 @@ using UnityEngine;
 public abstract class Pickup : MonoBehaviour
 {
     [SerializeField] float rotationSpeed = 100f;
+    [SerializeField] bool destroyOnPick = false;
 
     void Update()
     {
@@ -14,7 +15,11 @@ public abstract class Pickup : MonoBehaviour
         if (other.TryGetComponent(out PlayerController controller))
         {
             OnPickup(controller);
-            Destroy(gameObject);
+
+            if (destroyOnPick)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 

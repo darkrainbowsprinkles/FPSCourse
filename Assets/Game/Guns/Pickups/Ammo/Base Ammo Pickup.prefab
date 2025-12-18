@@ -66,5 +66,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 568870519c3f9b543ac31449e48e738d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationSpeed: 100
+  destroyOnPick: 1
   ammoType: 0
   ammoAmount: 0

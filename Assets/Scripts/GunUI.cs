@@ -4,9 +4,18 @@ using UnityEngine.UI;
 
 public class GunUI : MonoBehaviour
 {
-    [SerializeField] Image iconImage;
+    [SerializeField] Image gunIconImage;
     [SerializeField] TMP_Text ammoText;
+    [SerializeField] Image ammoIconImage;
+    [SerializeField] AmmoIcon[] ammoIcons;
     PlayerController playerController;
+
+    [System.Serializable]
+    class AmmoIcon
+    {
+        public AmmoType ammoType;
+        public Sprite icon;
+    }
 
     void Awake()
     {
@@ -16,17 +25,17 @@ public class GunUI : MonoBehaviour
 
     void OnEnable()
     {
-        playerController.OnGunEquipped += RefreshIcon;
+        playerController.OnGunEquipped += RefreshIcons;
         playerController.OnAmmoAdjusted += RefreshAmmoText;
     }
 
     void OnDisable()
     {
-        playerController.OnGunEquipped -= RefreshIcon;
+        playerController.OnGunEquipped -= RefreshIcons;
         playerController.OnAmmoAdjusted -= RefreshAmmoText;
     }
 
-    void RefreshIcon()
+    void RefreshIcons()
     {
         GunData currentGunData = playerController.GetCurrentGunData();
 
@@ -35,7 +44,8 @@ public class GunUI : MonoBehaviour
             return;
         }
 
-        iconImage.sprite = currentGunData.GetIcon();
+        gunIconImage.sprite = currentGunData.GetIcon();
+        ammoIconImage.sprite = GetAmmoIcon(currentGunData.GetAmmoType());
 
         RefreshAmmoText();
     }
@@ -50,5 +60,18 @@ public class GunUI : MonoBehaviour
         }
 
         ammoText.text = $"{playerController.GetAmmo(currentGunData.GetAmmoType())}";
+    }
+
+    Sprite GetAmmoIcon(AmmoType ammoType)
+    {
+        foreach (var ammoIcon in ammoIcons)
+        {
+            if (ammoIcon.ammoType == ammoType)
+            {
+                return ammoIcon.icon;
+            }
+        }
+
+        return null;
     }
 }
