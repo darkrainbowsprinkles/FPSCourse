@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float sprintMultiplier = 2f;
     [SerializeField] Transform gunContainer;
     [SerializeField] GunData defaultGun;
+    [SerializeField] AmmoSlot[] ammoSlots;
     PlayerInput playerInput;
     CharacterController controller;
     GunData currentGunData;
@@ -22,6 +23,18 @@ public class PlayerController : MonoBehaviour
 
         currentGun = gunData.Spawn(gunContainer);
         currentGunData = gunData;
+    }
+
+    public void AdjustAmmo(AmmoType ammoType, int amount)
+    {
+        GetAmmoSlot(ammoType).ammoAmount += amount;
+    }
+
+    [System.Serializable]
+    class AmmoSlot
+    {
+        public AmmoType ammoType;
+        public int ammoAmount;
     }
 
     void Awake()
@@ -51,18 +64,43 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+        AmmoSlot currentSlot = GetAmmoSlot(currentGunData.GetAmmoType());
+
+        if (currentSlot.ammoAmount == 0)
+        {
+            return;
+        }
+
         InputAction fireInput = playerInput.actions["Fire"];
 
         if (currentGunData.IsAutomatic() && fireInput.IsPressed())
         {
-            currentGun.Fire(currentGunData.GetDamage(), currentGunData.GetRange());
-            timeSinceLastShot = 0f;
+            Shoot();
         }
         else if (!currentGunData.IsAutomatic() && fireInput.WasPressedThisFrame())
         {
-            currentGun.Fire(currentGunData.GetDamage(), currentGunData.GetRange());
-            timeSinceLastShot = 0f;
+            Shoot();
         }
+    }
+
+    AmmoSlot GetAmmoSlot(AmmoType ammoType)
+    {
+        foreach (var slot in ammoSlots)
+        {
+            if (slot.ammoType == ammoType)
+            {
+                return slot;
+            }
+        }
+
+        return null;
+    }
+
+    void Shoot()
+    {
+        currentGun.Fire(currentGunData.GetDamage(), currentGunData.GetRange());
+        timeSinceLastShot = 0f;
+        AdjustAmmo(currentGunData.GetAmmoType(), -1);
     }
 
     void HandleMovement()

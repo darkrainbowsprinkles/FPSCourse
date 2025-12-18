@@ -8,6 +8,8 @@ public class GunData : ScriptableObject
     [SerializeField] float cooldown = 0.4f;
     [SerializeField] float range = 30f;
     [SerializeField] bool isAutomatic = false;
+    [SerializeField] int magazineSize = 10;
+    [SerializeField] AmmoType ammoType;
 
     public Gun Spawn(Transform gunContainer)
     {
@@ -33,5 +35,15 @@ public class GunData : ScriptableObject
     public bool IsAutomatic()
     {
         return isAutomatic;
+    }
+
+    public int GetMagazineSize()
+    {
+        return magazineSize;
+    }
+
+    public AmmoType GetAmmoType()
+    {
+        return ammoType;
     }
 }

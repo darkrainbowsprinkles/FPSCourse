@@ -224,7 +224,14 @@ MonoBehaviour:
   movementSpeed: 4
   sprintMultiplier: 2
   gunContainer: {fileID: 7061015170037355413}
-  gunData: {fileID: 11400000, guid: de45c30f57d4ba646a332dd230da0c79, type: 2}
+  defaultGun: {fileID: 11400000, guid: de45c30f57d4ba646a332dd230da0c79, type: 2}
+  ammoSlots:
+  - ammoType: 0
+    ammoAmount: 10
+  - ammoType: 1
+    ammoAmount: 20
+  - ammoType: 2
+    ammoAmount: 3
 --- !u!1001 &4218831634720400679
 PrefabInstance:
   m_ObjectHideFlags: 0
