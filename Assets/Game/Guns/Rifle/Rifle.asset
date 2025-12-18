@@ -17,3 +17,5 @@ MonoBehaviour:
   cooldown: 0.2
   range: 50
   isAutomatic: 1
+  magazineSize: 10
+  ammoType: 1

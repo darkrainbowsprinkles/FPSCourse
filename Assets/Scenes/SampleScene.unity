@@ -1673,10 +1673,6 @@ PrefabInstance:
       propertyPath: gunData
       value: 
       objectReference: {fileID: 11400000, guid: de45c30f57d4ba646a332dd230da0c79, type: 2}
-    - target: {fileID: 1070200878607195639, guid: a895ad5db6eb66d4a89c2d19a100e41d, type: 3}
-      propertyPath: defaultGun
-      value: 
-      objectReference: {fileID: 11400000, guid: de45c30f57d4ba646a332dd230da0c79, type: 2}
     - target: {fileID: 4750094459142676828, guid: a895ad5db6eb66d4a89c2d19a100e41d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.006694913

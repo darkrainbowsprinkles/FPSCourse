@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,7 +14,8 @@ public class PlayerController : MonoBehaviour
     GunData currentGunData;
     Gun currentGun;
     float timeSinceLastShot = Mathf.Infinity;
-
+    Dictionary<AmmoType, int> ammoLookup;
+ 
     public void EquipGun(GunData gunData)
     {
         if (currentGun != null)
@@ -27,7 +29,13 @@ public class PlayerController : MonoBehaviour
 
     public void AdjustAmmo(AmmoType ammoType, int amount)
     {
-        GetAmmoSlot(ammoType).ammoAmount += amount;
+        if (!ammoLookup.ContainsKey(ammoType))
+        {
+            Debug.LogError($"Ammo type {ammoType} not found");
+            return;
+        }
+
+        ammoLookup[ammoType] += amount;
     }
 
     [System.Serializable]
@@ -47,6 +55,7 @@ public class PlayerController : MonoBehaviour
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        FillAmmoLookup();
         EquipGun(defaultGun);
     }
 
@@ -57,6 +66,16 @@ public class PlayerController : MonoBehaviour
         HandleFiring();
     }
 
+    void FillAmmoLookup()
+    {
+        ammoLookup = new Dictionary<AmmoType, int>();
+
+        foreach (var slot in ammoSlots)
+        {
+            ammoLookup[slot.ammoType] = slot.ammoAmount;
+        }
+    }
+
     void HandleFiring()
     {
         if (timeSinceLastShot < currentGunData.GetCooldown())
@@ -64,9 +83,9 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        AmmoSlot currentSlot = GetAmmoSlot(currentGunData.GetAmmoType());
+        AmmoType currentAmmoType = currentGunData.GetAmmoType();
 
-        if (currentSlot.ammoAmount == 0)
+        if (GetAmmo(currentAmmoType) == 0)
         {
             return;
         }
@@ -83,17 +102,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    AmmoSlot GetAmmoSlot(AmmoType ammoType)
+    int GetAmmo(AmmoType ammoType)
     {
-        foreach (var slot in ammoSlots)
+        if (!ammoLookup.ContainsKey(ammoType))
         {
-            if (slot.ammoType == ammoType)
-            {
-                return slot;
-            }
+            Debug.LogError($"Ammo type {ammoType} not found");
+            return -1;
         }
 
-        return null;
+        return ammoLookup[ammoType];
     }
 
     void Shoot()
