@@ -1,15 +1,11 @@
 using UnityEngine;
 
-public class GunPickup : MonoBehaviour
+public class GunPickup : Pickup
 {
     [SerializeField] GunData gunData;
 
-    void OnTriggerEnter(Collider other)
+    protected override void OnPickup(PlayerController controller)
     {
-        if (other.TryGetComponent(out PlayerController controller))
-        {
-            controller.EquipGun(gunData);
-            Destroy(gameObject);
-        }
+        controller.EquipGun(gunData);
     }
 }

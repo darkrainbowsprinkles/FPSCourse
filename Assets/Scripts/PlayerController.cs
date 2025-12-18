@@ -36,6 +36,8 @@ public class PlayerController : MonoBehaviour
         }
 
         ammoLookup[ammoType] += amount;
+        
+        print(GetAmmo(ammoType));
     }
 
     [System.Serializable]
