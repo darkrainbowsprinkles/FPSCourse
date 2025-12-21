@@ -450,7 +450,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 55
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -493,7 +493,8 @@ MonoBehaviour:
   m_RequiresDepthTextureOption: 2
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
-  m_Cameras: []
+  m_Cameras:
+  - {fileID: 2112927851}
   m_RendererIndex: -1
   m_VolumeLayerMask:
     serializedVersion: 2
@@ -1739,6 +1740,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   currentHealth: 0
+--- !u!20 &2112927851 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 4877980798613736027, guid: a895ad5db6eb66d4a89c2d19a100e41d, type: 3}
+  m_PrefabInstance: {fileID: 4953578507568096483}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1641308009197265982
 PrefabInstance:
   m_ObjectHideFlags: 0
