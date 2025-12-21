@@ -6,6 +6,7 @@ public class Gun : MonoBehaviour
     [SerializeField] Transform muzzle;
     [SerializeField] GameObject muzzleFlashEffect;
     [SerializeField] GameObject hitEffect;
+    [SerializeField] LayerMask interactionLayers;
     Animator animator;
     CinemachineImpulseSource impulseSource;
 
@@ -19,8 +20,8 @@ public class Gun : MonoBehaviour
 
         RaycastHit hit;
 
-        bool hitFound = Physics.Raycast(Camera.main.transform.position, 
-            Camera.main.transform.forward, out hit, range);
+        bool hitFound = Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, 
+            out hit, range, interactionLayers, QueryTriggerInteraction.Ignore);
     
         if (!hitFound)
         {
